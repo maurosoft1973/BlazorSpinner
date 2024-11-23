@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maurosoft.Blazor.Components.Spinner", "src\Spinner\Maurosoft.Blazor.Components.Spinner.csproj", "{2CFA01DD-EC28-4180-BF09-78CE7DDB68B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{706A49CE-DD5C-4130-8E72-3AD738A1AD9B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maurosoft.Blazor.Components.Spinner.DemoTailwind", "src\DemoTailwind\Maurosoft.Blazor.Components.Spinner.DemoTailwind.csproj", "{FD5F5929-A859-44B1-BEC9-7D78417F1D49}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maurosoft.Blazor.Components.Spinner.DemoBootstrap", "src\DemoBootstrap\Maurosoft.Blazor.Components.Spinner.DemoBootstrap.csproj", "{5E1A4434-6D65-4C77-8114-95480E03E8CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CFA01DD-EC28-4180-BF09-78CE7DDB68B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CFA01DD-EC28-4180-BF09-78CE7DDB68B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CFA01DD-EC28-4180-BF09-78CE7DDB68B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CFA01DD-EC28-4180-BF09-78CE7DDB68B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD5F5929-A859-44B1-BEC9-7D78417F1D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD5F5929-A859-44B1-BEC9-7D78417F1D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD5F5929-A859-44B1-BEC9-7D78417F1D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD5F5929-A859-44B1-BEC9-7D78417F1D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E1A4434-6D65-4C77-8114-95480E03E8CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E1A4434-6D65-4C77-8114-95480E03E8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E1A4434-6D65-4C77-8114-95480E03E8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E1A4434-6D65-4C77-8114-95480E03E8CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05A3AB93-F424-48D9-92E5-AC91506BECF3}
+	EndGlobalSection
+EndGlobal

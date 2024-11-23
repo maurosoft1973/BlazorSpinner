@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Maurosoft.Blazor.Components.Spinner.Demo": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55602;http://localhost:55603"
+    }
+  }
+}

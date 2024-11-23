@@ -1,0 +1,33 @@
+﻿@inherits LayoutComponentBase
+
+<!-- Top Navigation -->
+<header class="bg-white shadow-md dark:bg-gray-800 dark:text-white">
+    <div class="mx-auto px-4 py-4 flex justify-between items-center">
+        <!-- Brand Icon and Name -->
+        <div class="w-64 flex items-center space-x-2">
+            <i class="fas fa-rocket text-blue-500 text-2xl"></i> <!-- Icona del brand -->
+            <span class="text-xl font-bold">Blazor Spinner</span>
+        </div>
+        <!-- Button on the right -->
+        <div>
+            <Header />
+        </div>
+    </div>
+</header>
+
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-800 text-white">
+        <Sidebar />
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 bg-white p-6">
+        @Body
+    </main>
+</div>
+
+<div id="blazor-error-ui" style="display:none">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

@@ -1,0 +1,50 @@
+﻿@using Maurosoft.Blazor.Tailwind.Core;
+@using Maurosoft.Blazor.Tailwind.Core.Css;
+@using Maurosoft.Blazor.Tailwind.Core.Enums;
+@using Maurosoft.Blazor.Tailwind.Core.ExtensionMethods;
+@using Maurosoft.Blazor.Tailwind.Core.Interfaces;
+@namespace Maurosoft.Blazor.Components.Spinner
+@inherits BlazorComponentBase
+@if (Visible)
+{
+    @if (SpinnerMode == SpinnerMode.Alone)
+    {
+        <span id="@Id" class="@SpinnerLoader.ToEnumMemberAttributeValue() @baseClass"></span>
+    }
+    else if (SpinnerMode == SpinnerMode.Page)
+    {
+        <div id="@Id-overlay" class="spinner-overlay-page">
+            <div id="@Id-container" class="spinner-container-page">
+                <span id="@Id" class="@SpinnerLoader.ToEnumMemberAttributeValue() @baseClass"></span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div id="@Id-overlay" class="spinner-overlay-element" style="justify-content: @SpinnerHorizontalPosition.ToEnumMemberAttributeValue() ; align-items: @SpinnerVerticalPosition.ToEnumMemberAttributeValue()">
+            <div id="@Id-container" class="spinner-container-element">
+                <span id="@Id" class="@SpinnerLoader.ToEnumMemberAttributeValue() @baseClass"></span>
+            </div>
+        </div>
+    }
+    <style>
+        :scope span#@(Id) {
+            --spinner-size: @SpinnerSize.ToEnumMemberAttributeValue();
+            --spinner-lite: @SpinnerColorLite.ToEnumMemberAttributeValue();
+            --spinner-lite-r: @SpinnerColorLite.RgbColor(ColorRgbPart.R);
+            --spinner-lite-g: @SpinnerColorLite.RgbColor(ColorRgbPart.G);
+            --spinner-lite-b: @SpinnerColorLite.RgbColor(ColorRgbPart.B);
+            --spinner-brand: @SpinnerColorBrand.ToEnumMemberAttributeValue();
+            --spinner-brand-r: @SpinnerColorBrand.RgbColor(ColorRgbPart.R);
+            --spinner-brand-g: @SpinnerColorBrand.RgbColor(ColorRgbPart.G);
+            --spinner-brand-b: @SpinnerColorBrand.RgbColor(ColorRgbPart.B);
+            --spinner-base: @SpinnerColorBase.ToEnumMemberAttributeValue();
+        }
+        :scope div#@(Id)-overlay {
+            --spinner-background-color-r: @SpinnerBackgroundColor.RgbColor(ColorRgbPart.R);
+            --spinner-background-color-g: @SpinnerBackgroundColor.RgbColor(ColorRgbPart.G);
+            --spinner-background-color-b: @SpinnerBackgroundColor.RgbColor(ColorRgbPart.B);
+            --spinner-background-color-opacity: @SpinnerBackgroundOpacity.ToEnumMemberAttributeValue();
+        }
+    </style>
+}

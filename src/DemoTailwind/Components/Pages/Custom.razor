@@ -1,0 +1,182 @@
+﻿@page "/demo/customsetting"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@attribute [StreamRendering]
+
+<PageTitle>Spinner - Custom Settings</PageTitle>
+
+<p class="mb-1">
+    This example shows how to customise the behaviour of the spinner, depending on the selected parameters.
+</p>
+
+<ul class="mb-1 space-y-1 list-disc list-inside">
+    <li>Mode: Sets the render mode the spinner (Alone, Element, Page)</li>
+    <li>Loader: Sets the loader to be displayed, choosing from those available</li>
+    <li>Timeout: Sets the seconds after which the spinner is hidden (for simulation of long operations)</li>
+    <li>Horizontal Position: Sets the horizontal position of the spinner within the element (only Mode = Element)</li>
+    <li>Vertical Position: Sets the vertical position of the spinner within the element  (only Mode = Element)</li>
+    <li>Background Color: Sets the background colour of the element where the spinner is contained (only Mode = Element or Mode = Page)</li>
+    <li>Background Opacity: Sets the background opacity of the element where the spinner is contained (only Mode = Element or Mode = Page)</li>
+</ul>
+
+<hr class="mt-5 mb-5" />
+
+<button type="button" @onclick="Click" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Show</button>
+
+<div class="grid grid-cols-7 grid-rows-1 gap-4 mb-1">
+    <div>
+        <span>Mode:</span><br/>
+        <select @onchange="OnChangeMode">
+            <option>Alone</option>
+            <option selected>Element</option>
+            <option>Page</option>
+        </select>
+    </div>
+    <div>
+        <span>Loader:</span><br />
+        <select @onchange="OnChangeLoader">
+            <option selected>Loader1</option>
+            @for (int i = 2; i <= 81; i++)
+            {
+                <option>Loader@(i)</option>
+            }
+        </select>
+    </div>
+    <div>
+        <span>Timeout:</span><br />
+        <select @onchange="OnChangeDelay">
+            <option>1</option>
+            <option selected>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+        </select>
+    </div>
+    <div>
+        <span>Horizontal Position:</span><br />
+        <select @onchange="OnChangeHorizontalPosition">
+            <option>Left</option>
+            <option selected>Center</option>
+            <option>Right</option>
+        </select>
+    </div>
+    <div>
+        <span>Vertical Position:</span><br />
+        <select @onchange="OnChangeVerticalPosition">
+            <option>Top</option>
+            <option selected>Middle</option>
+            <option>Bottom</option>
+        </select>
+    </div>
+    <div>
+        <span>Background Color:</span><br />
+        <select @onchange="OnChangeBackgroundColor">
+            <option selected>Gray_200</option>
+            <option>White</option>
+            <option>Blue_200</option>
+            <option>Slate_200</option>
+            <option>Zinc_200</option>
+            <option>Neutral_200</option>
+            <option>Stone_200</option>
+        </select>
+    </div>
+    <div>
+        <span>Background Opacity:</span><br />
+        <select @onchange="OnChangeBackgroundOpacity">
+            <option selected>None</option>
+            <option>90</option>
+            <option>80</option>
+            <option>70</option>
+            <option>60</option>
+            <option>50</option>
+            <option>40</option>
+            <option>30</option>
+            <option>20</option>
+            <option>10</option>
+            <option>00</option>
+        </select>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 grid-rows-1 gap-4 min-h-32 mt-2">
+    <div class="relative border">
+        <Spinner @ref="Spinner1" SpinnerLoader="SpinnerLoader.Loader1" SpinnerMode="SpinnerMode.Element" Visible="false" />
+    </div>
+</div>
+
+@code {
+    Spinner Spinner1 { get; set; } = default!;
+
+    private int _delay = 2000;
+
+    async void Click()
+    {
+        await Spinner1.ShowAsync(async (callBackFunctionClose) =>
+        {
+            await Task.Delay(_delay); // Simulates a long activity
+            await callBackFunctionClose(); // Invokes the asynchronous closing routine
+        });
+    }
+
+    void OnChangeMode(ChangeEventArgs changeEventArgs)
+    {
+        Spinner1.SetSpinnerMode(Enum.Parse<SpinnerMode>(changeEventArgs?.Value?.ToString() ?? "Alone"));
+    }
+
+    void OnChangeDelay(ChangeEventArgs changeEventArgs)
+    {
+        _delay = Convert.ToInt16(changeEventArgs?.Value) * 1000;
+    }
+
+    void OnChangeLoader(ChangeEventArgs changeEventArgs)
+    {
+        Spinner1.SetSpinnerLoader(Enum.Parse<SpinnerLoader>(changeEventArgs?.Value?.ToString() ?? "Loader1"));
+    }
+
+    void OnChangeHorizontalPosition(ChangeEventArgs changeEventArgs)
+    {
+        Spinner1.SetSpinnerHorizontalPosition(Enum.Parse<SpinnerHorizontalPosition>(changeEventArgs?.Value?.ToString() ?? "Center"));
+    }
+
+    void OnChangeVerticalPosition(ChangeEventArgs changeEventArgs)
+    {
+        Spinner1.SetSpinnerVerticalPosition(Enum.Parse<SpinnerVerticalPosition>(changeEventArgs?.Value?.ToString() ?? "Middle"));
+    }
+
+    void OnChangeBackgroundColor(ChangeEventArgs changeEventArgs)
+    {
+        var bg = changeEventArgs?.Value?.ToString() switch
+        {
+            "Slate_200" => Tailwind.Core.Enums.ColorRgb.Slate_200,
+            "Zinc_200" => Tailwind.Core.Enums.ColorRgb.Zinc_200,
+            "Neutral_200" => Tailwind.Core.Enums.ColorRgb.Neutral_200,
+            "Stone_200" => Tailwind.Core.Enums.ColorRgb.Stone_200,
+            "White" => Tailwind.Core.Enums.ColorRgb.White,
+            "Blue_200" => Tailwind.Core.Enums.ColorRgb.Blue_200,
+            _ => Tailwind.Core.Enums.ColorRgb.Gray_200
+        };
+
+        Spinner1.SetSpinnerBackgroundColor(bg);
+    }
+
+    void OnChangeBackgroundOpacity(ChangeEventArgs changeEventArgs)
+    {
+        var bo = changeEventArgs?.Value?.ToString() switch
+        {
+            "90" => SpinnerBackgroundOpacity.Opacity90,
+            "80" => SpinnerBackgroundOpacity.Opacity80,
+            "70" => SpinnerBackgroundOpacity.Opacity70,
+            "60" => SpinnerBackgroundOpacity.Opacity60,
+            "50" => SpinnerBackgroundOpacity.Opacity50,
+            "40" => SpinnerBackgroundOpacity.Opacity40,
+            "30" => SpinnerBackgroundOpacity.Opacity30,
+            "20" => SpinnerBackgroundOpacity.Opacity20,
+            "10" => SpinnerBackgroundOpacity.Opacity10,
+            "00" => SpinnerBackgroundOpacity.Opacity0,
+            _ => SpinnerBackgroundOpacity.None
+        };
+
+        Spinner1.SetSpinnerBackgroundOpacity(bo);
+    }
+}

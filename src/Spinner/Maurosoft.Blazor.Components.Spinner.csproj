@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/maurosoft1973/BlazorSpinner</PackageProjectUrl>
+    <Copyright>Mauro Cardillo</Copyright>
+    <PackageTags>blazor; loader; spinner</PackageTags>
+    <RepositoryUrl>https://github.com/maurosoft1973/BlazorSpinner</RepositoryUrl>
+    <Title>Blazor Spinner</Title>
+    <Description>A beatiful loading spinner with overlay for Blazor apps</Description>
+    <Authors>Mauro Cardillo</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Maurosoft.Blazor.Tailwind.Core" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.10" />
+  </ItemGroup>
+
+</Project>

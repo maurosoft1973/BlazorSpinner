@@ -1,0 +1,27 @@
+﻿@page "/demo/page"
+@rendermode @(new InteractiveServerRenderMode(true))
+@attribute [StreamRendering]
+
+<PageTitle>Page Loader</PageTitle>
+
+<Spinner IsServiceSpinner="true" SpinnerMode="SpinnerMode.Page" SpinnerLoader="SpinnerLoader.Loader2" SpinnerBackgroundOpacity="SpinnerBackgroundOpacity.Opacity50" Visible="true" />
+
+<p>This example demonstrates how to use the spinner on pages that take a certain number of seconds to display.</p>
+
+@code {
+    [Inject]
+    private SpinnerService spinnerService { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1000); //Simulates a long activity
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            spinnerService.Hide();
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}

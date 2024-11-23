@@ -1,0 +1,37 @@
+﻿@page "/demo/service"
+@rendermode @(new InteractiveServerRenderMode())
+@inject SpinnerService spinnerservice
+
+<PageTitle>Spinner - Service</PageTitle>
+
+<h2>This example shows how to use the spinner with service.</h2>
+
+<ol>
+    <li>
+        <p>In this case, the spinner is only displayed</p>
+        <button type="button" @onclick="Click" class="btn btn-primary">Show spinner</button>
+    </li>
+    <li>
+        <p>In this case, the spinner is hidden after execution of the user-defined function</p>
+        <button type="button" @onclick="ClickAsync" class="btn btn-primary">Show spinner async</button>
+    </li>
+</ol>
+
+<Spinner IsServiceSpinner="true" SpinnerMode="SpinnerMode.Page" SpinnerLoader="SpinnerLoader.Loader2" Visible="false" />
+
+@code {
+    void Click()
+    {
+        spinnerservice.Show();
+    }
+
+    void ClickAsync()
+    {
+        spinnerservice.Show(async (callBackFunctionClose) =>
+        {
+            await Task.Delay(2000); // Simulates a long activity
+            await callBackFunctionClose(); // Invokes the asynchronous closing routine
+        });
+    }
+
+}
