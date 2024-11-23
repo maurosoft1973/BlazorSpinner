@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "El
 		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
 		LICENSE.md = LICENSE.md
+		README-NUGET.md = README-NUGET.md
 		README.md = README.md
 	EndProjectSection
 EndProject
