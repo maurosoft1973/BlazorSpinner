@@ -59,7 +59,10 @@ jobs:
     name: 📦 Pack
     runs-on: ubuntu-latest
     needs: [build]
-    steps:     
+    steps:
+      - name: Install .NET
+        uses: maurosoft1973/gha-dotnet-install@v1
+        
       - name: Pack for ${{ env.CONFIGURATION }}
         uses: maurosoft1973/gha-dotnet-pack@v1
         with:
