@@ -64,7 +64,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'DemoSpinnerTailwind'
+          app-name: 'DemoBlazorSpinnerTailwind'
           slot-name: 'Production'
           package: .
           
