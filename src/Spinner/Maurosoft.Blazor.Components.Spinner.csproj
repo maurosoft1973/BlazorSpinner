@@ -4,7 +4,7 @@
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>README-NUGET.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/maurosoft1973/BlazorSpinner</PackageProjectUrl>
     <Copyright>Mauro Cardillo</Copyright>
     <PackageTags>blazor; loader; spinner</PackageTags>
