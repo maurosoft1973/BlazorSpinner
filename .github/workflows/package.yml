@@ -19,7 +19,6 @@ on:
 
 env:
   TIMEZONE: 'Europe/Rome'
-  NET_VERSION: 'net9.0'
   CONFIGURATION: 'Release'
   PROJECT_PATH: ./src/Spinner
   PROJECT_NAME: Maurosoft.Blazor.Components.Spinner.csproj
@@ -48,15 +47,13 @@ jobs:
         uses: maurosoft1973/gha-dotnet-restore@v1
 
       - name: Build for ${{ env.CONFIGURATION }}
-        uses: maurosoft1973/gha-dotnet-build@v1
+        uses: maurosoft1973/gha-dotnet-build@v2
         with:
           # Optional path to the project(s) file to restore. Pass empty to have MSBuild use the default behavior.
           # Supports globbing.
           projects: ${{ env.PROJECT_PATH }}/${{ env.PROJECT_NAME }}
           # Defines the build configuration.
           configuration: ${{ env.CONFIGURATION }}
-          # Compiles for a specific framework. The framework must be defined in the project file.
-          framework: ${{ env.NET_VERSION }}
 
   pack:
     name: 📦 Pack
