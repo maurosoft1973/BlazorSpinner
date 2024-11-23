@@ -1,0 +1,86 @@
+name: Build Maurosoft.Blazor.Components.Spinner
+on:
+  push:
+    branches: [main]
+    paths:  [ 'src/Spinner/**' ]
+  pull_request:
+    branches: [main]
+    paths:  [ 'src/Spinner/**' ]
+  workflow_dispatch:
+    inputs:
+      configuration:
+        type: choice
+        description: The build configuration to use in the deploy stage.
+        required: true
+        default: Release
+        options:
+          - Debug
+          - Release
+
+env:
+  TIMEZONE: 'Europe/Rome'
+  NET_VERSION: 'net8.0'
+  CONFIGURATION: 'Release'
+  PROJECT_PATH: ./src/Spinner
+  PROJECT_NAME: Maurosoft.Blazor.Components.Spinner.csproj
+  PACKAGE_NAME: Maurosoft.Blazor.Components.Spinner
+
+jobs:
+  build:
+    name: 🛠️ Build
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.nbgv.outputs.SemVer2 }}
+    steps:
+      - name: Checkout
+        uses: codebeltnet/git-checkout@v1
+
+      - name: Install .NET
+        uses: maurosoft1973/gha-dotnet-install@v1
+
+      - name: Nerdbank.GitVersioning 
+        uses: dotnet/nbgv@v0.4
+        id: nbgv
+        with:
+          path: ${{ env.PROJECT_PATH }}
+
+      - name: Restore Dependencies
+        uses: maurosoft1973/gha-dotnet-restore@v1
+
+      - name: Build for ${{ env.CONFIGURATION }}
+        uses: maurosoft1973/gha-dotnet-build@v1
+        with:
+          # Optional path to the project(s) file to restore. Pass empty to have MSBuild use the default behavior.
+          # Supports globbing.
+          projects: ${{ env.PROJECT_PATH }}/${{ env.PROJECT_NAME }}
+          # Defines the build configuration.
+          configuration: ${{ env.CONFIGURATION }}
+          # Compiles for a specific framework. The framework must be defined in the project file.
+          framework: ${{ env.NET_VERSION }}
+
+  pack:
+    name: 📦 Pack
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:     
+      - name: Pack for ${{ env.CONFIGURATION }}
+        uses: maurosoft1973/gha-dotnet-pack@v1
+        with:
+          configuration: ${{ env.CONFIGURATION }}
+          packageName: ${{ env.PACKAGE_NAME }}
+          level: 'normal'
+          uploadPackedArtifact: true
+          version: ${{ needs.build.outputs.version }}
+
+  deploy:
+    name: 🚀 Deploy Pack v.${{ needs.build.outputs.version }}
+    runs-on: ubuntu-latest
+    needs: [build,pack]
+    environment: Production
+    steps:
+      - uses: maurosoft1973/gha-dotnet-nuget-push@v1
+        with:
+          source: 'https://api.nuget.org/v3/index.json'
+          packageName: ${{ env.PACKAGE_NAME }}.${{ env.CONFIGURATION }}.${{ needs.build.outputs.version }}.nupkg
+          token: ${{ secrets.NUGET_API_KEY }}
+          configuration: ${{ inputs.configuration == '' && 'Release' || inputs.configuration }}
