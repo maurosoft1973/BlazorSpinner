@@ -19,7 +19,7 @@ on:
 
 env:
   TIMEZONE: 'Europe/Rome'
-  NET_VERSION: 'net8.0'
+  NET_VERSION: 'net9.0'
   CONFIGURATION: 'Release'
   PROJECT_PATH: ./src/Spinner
   PROJECT_NAME: Maurosoft.Blazor.Components.Spinner.csproj
