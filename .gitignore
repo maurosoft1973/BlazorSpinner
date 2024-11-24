@@ -399,8 +399,3 @@ FodyWeavers.xsd
 
 # Env settings
 .env
-
-# Blazor
-!src/DemoTailwind/wwwroot/*
-!src/DemoBootstrap/wwwroot/*
-src/**/wwwroot/*

@@ -8,6 +8,8 @@ Blazor Spinner is a beautiful loading spinner that can be included in your Blazo
 
 ![Blazor Spinner Preview](https://s11.gifyu.com/images/Sye7D.gif)
 
+[Live Demo](https://demoblazorspinnertailwind-eqcza4a6gve7dscx.italynorth-01.azurewebsites.net/)
+
 ### Features
 
 - High level of customisation;
