@@ -4,15 +4,21 @@
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageReadmeFile>README-NUGET.md</PackageReadmeFile>
-    <PackageProjectUrl>https://github.com/maurosoft1973/BlazorSpinner</PackageProjectUrl>
-    <Copyright>Mauro Cardillo</Copyright>
-    <PackageTags>blazor; loader; spinner</PackageTags>
-    <RepositoryUrl>https://github.com/maurosoft1973/BlazorSpinner</RepositoryUrl>
-    <Title>Blazor Spinner</Title>
-    <Description>A beatiful loading spinner with overlay for Blazor apps</Description>
     <Authors>Mauro Cardillo</Authors>
+    <Company>Mauro Cardillo</Company>
+    <Copyright>Mauro Cardillo</Copyright>
+    <Product>Blazor Spinner</Product>
+    <Title>Blazor Spinner</Title>
+    <Description>A beautiful loading spinner with overlay for Blazor apps with over 80 preset loader, high customization (size, position, background color, background opacity, ecc.)</Description>
+    <PackageIcon>Spinner.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/maurosoft1973/BlazorSpinner</PackageProjectUrl>
+    <PackageReadmeFile>README-NUGET.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageTags>blazor; blazor-components; loading; spinner;</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/maurosoft1973/BlazorSpinner.git</RepositoryUrl>
+    <RepositoryBranch>main</RepositoryBranch>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,8 +30,11 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <None Include="..\..\Spinner.png">
+       <Pack>True</Pack>
+       <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
-
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
