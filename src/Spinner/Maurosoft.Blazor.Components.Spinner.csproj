@@ -14,7 +14,6 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/maurosoft1973/BlazorSpinner</PackageProjectUrl>
     <PackageReadmeFile>README-NUGET.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageTags>blazor; blazor-components; loading; spinner;</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/maurosoft1973/BlazorSpinner.git</RepositoryUrl>
