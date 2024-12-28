@@ -23,6 +23,7 @@ env:
   PROJECT_PATH: ./src/Spinner
   PROJECT_NAME: Maurosoft.Blazor.Components.Spinner.csproj
   PACKAGE_NAME: Maurosoft.Blazor.Components.Spinner
+  BUILD_ARTIFACT: Maurosoft.Blazor.Components.Spinner
 
 jobs:
   build:
@@ -32,7 +33,7 @@ jobs:
       version: ${{ steps.nbgv.outputs.SemVer2 }}
     steps:
       - name: Checkout
-        uses: codebeltnet/git-checkout@v1
+        uses: maurosoft1973/gha-git-checkout@v1
 
       - name: Install .NET
         uses: maurosoft1973/gha-dotnet-install@v1
@@ -46,14 +47,12 @@ jobs:
       - name: Restore Dependencies
         uses: maurosoft1973/gha-dotnet-restore@v1
 
-      - name: Build for ${{ env.CONFIGURATION }}
-        uses: maurosoft1973/gha-dotnet-build@v2
+      - name: Build for ${{ env.PROJECT_NAME }} (${{ env.CONFIGURATION }})
+        uses: maurosoft1973/gha-dotnet-build@v1
         with:
-          # Optional path to the project(s) file to restore. Pass empty to have MSBuild use the default behavior.
-          # Supports globbing.
           projects: ${{ env.PROJECT_PATH }}/${{ env.PROJECT_NAME }}
-          # Defines the build configuration.
           configuration: ${{ env.CONFIGURATION }}
+          uploadBuildArtifactName: ${{ env.BUILD_ARTIFACT }}
 
   pack:
     name: 📦 Pack
@@ -62,15 +61,16 @@ jobs:
     steps:
       - name: Install .NET
         uses: maurosoft1973/gha-dotnet-install@v1
-        
-      - name: Pack for ${{ env.CONFIGURATION }}
+
+      - name: Pack for ${{ env.PACKAGE_NAME }} - ${{ env.CONFIGURATION }}
         uses: maurosoft1973/gha-dotnet-pack@v1
         with:
-          configuration: ${{ env.CONFIGURATION }}
-          packageName: ${{ env.PACKAGE_NAME }}
+          downloadArtifactName: ${{ env.BUILD_ARTIFACT }}
           level: 'normal'
+          packageName: ${{ env.PACKAGE_NAME }}
+          packageVersion: ${{ needs.build.outputs.version }}
+          projects: ${{ env.PROJECT_PATH }}/${{ env.PROJECT_NAME }}
           uploadPackedArtifact: true
-          version: ${{ needs.build.outputs.version }}
 
   deploy:
     name: 🚀 Deploy Pack v.${{ needs.build.outputs.version }}
@@ -78,9 +78,13 @@ jobs:
     needs: [build,pack]
     environment: Production
     steps:
-      - uses: maurosoft1973/gha-dotnet-nuget-push@v1
+      - name: Download ${{ env.PACKAGE_NAME }}.nupkg
+        uses: actions/download-artifact@v4
         with:
-          source: 'https://api.nuget.org/v3/index.json'
-          packageName: ${{ env.PACKAGE_NAME }}.${{ env.CONFIGURATION }}.${{ needs.build.outputs.version }}.nupkg
-          token: ${{ secrets.NUGET_API_KEY }}
-          configuration: ${{ inputs.configuration == '' && 'Release' || inputs.configuration }}
+          name: ${{ env.PACKAGE_NAME }}.${{ needs.build.outputs.version }}.nupkg
+
+      - name: Install .NET
+        uses: maurosoft1973/gha-dotnet-install@v1
+
+      - name: Publish NuGet package
+        run: dotnet nuget push '${{ github.workspace }}/*.nupkg' --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate

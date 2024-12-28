@@ -43,7 +43,34 @@ Blazor Spinner is a beautiful loading spinner that can be included in your Blazo
 5. On page you want to call the spinner from, inject the SpinnerService into it: ```@inject SpinnerService _spinnerService```
 6. Call ```_spinnerService.Show()``` or ```_spinnerService.Hide()``` to "Show" or "Hide" the spinner.
 
-### Usage (Tailwind Framework) inside Page
+### Usage (with Bootstrap Framework) inside Page
+1. Install the library from Nuget: https://www.nuget.org/packages/Maurosoft.Blazor.Components.Spinner/
+2. Add ```@using Maurosoft.Blazor.Components``` in your _Imports.razor
+3. Add ```builder.Services.AddBlazorSpinnerServices();``` in your Program.cs file
+4. Add component in your page
+   ```
+   ....
+
+   <Spinner @ref="Spinner1" SpinnerLoader="SpinnerLoader.Loader1" Visible="false" />
+   <button type="button" @onclick="Click">Show</button>
+
+   @code {
+        Spinner Spinner1 { get; set; } = default!;
+
+        private int _delay = 2000;
+
+        async void Click()
+        {
+            await Spinner1.ShowAsync(async (callBackFunctionClose) =>
+            {
+                await Task.Delay(_delay); // Simulates a long activity
+                await callBackFunctionClose(); // Invokes the asynchronous closing routine
+            });
+        }
+   }
+   ```
+
+### Usage (with Tailwind Framework) inside Page
 1. Install the library from Nuget: https://www.nuget.org/packages/Maurosoft.Blazor.Components.Spinner/
 2. Add ```@using Maurosoft.Blazor.Components``` in your _Imports.razor
 3. Add ```builder.Services.AddBlazorTailwindCoreServices();``` in your Program.cs file
@@ -53,7 +80,7 @@ Blazor Spinner is a beautiful loading spinner that can be included in your Blazo
    ....
 
    <Spinner @ref="Spinner1" SpinnerLoader="SpinnerLoader.Loader1" Visible="false" />
-   <button type="button" @onclick="Click" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Show</button>
+   <button type="button" @onclick="Click">Show</button>
 
    @code {
         Spinner Spinner1 { get; set; } = default!;
